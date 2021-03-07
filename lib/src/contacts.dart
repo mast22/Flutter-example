@@ -28,9 +28,7 @@ class ContactTile extends StatelessWidget {
 }
 
 class Contacts extends StatelessWidget {
-  final FlutterSecureStorage storage;
-
-  Contacts({Key key, @required this.storage}) : super(key: key);
+  final storage = new FlutterSecureStorage();
 
   Future<String> _getToken() async {
     String value = await storage.read(key: 'token');

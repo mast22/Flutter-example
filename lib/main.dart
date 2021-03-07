@@ -37,10 +37,10 @@ class HomeRoute extends StatelessWidget {
         children: <Widget>[
           CommonWidgets.buildTile(context, 'Галерея', Gallery()),
           CommonWidgets.buildTile(context, 'Добавить фото', UploadPhoto()),
-          CommonWidgets.buildTile(context, 'Профиль', Profile(storage: storage)),
-          CommonWidgets.buildTile(context, 'Контакты', Contacts(storage: storage)),
-          CommonWidgets.buildTile(context, 'Войти', SignInForm(storage: storage)),
-          CommonWidgets.buildTile(context, 'Регистрация', SignUpForm(storage: storage)),
+          CommonWidgets.buildTile(context, 'Профиль', Profile()),
+          CommonWidgets.buildTile(context, 'Контакты', Contacts()),
+          CommonWidgets.buildTile(context, 'Войти', SignInForm()),
+          CommonWidgets.buildTile(context, 'Регистрация', SignUpForm()),
           ListTile(
             title: Text('Выйти из аккаунта'),
             onTap: () async { await storage.delete(key: 'token'); },

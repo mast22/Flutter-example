@@ -4,9 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:dio/dio.dart';
 
 class SignInForm extends StatefulWidget {
-  final FlutterSecureStorage storage;
-
-  SignInForm({Key key, @required this.storage}) : super(key: key);
+  final storage = new FlutterSecureStorage();
 
   @override
   _SignInFormState createState() => _SignInFormState();

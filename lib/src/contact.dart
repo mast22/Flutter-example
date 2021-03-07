@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_app/src/chat.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Contact {
-  final String id;
+  final int id;
   final String profilePicture;
   final String lastName;
   final String vk;
@@ -16,7 +17,7 @@ class Contact {
       this.phoneNumber, this.firstName, this.skype);
 
   Contact.fromJson(Map<String, dynamic> json)
-      : id = json['user_id'],
+      : id = json['id_user'],
         profilePicture = json['img'],
         lastName = json['family'],
         firstName = json['user'],
@@ -87,7 +88,9 @@ class ContactDetail extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.network(snapshot.data.profilePicture),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Table(
                       border: TableBorder.all(),
                       children: [
@@ -95,10 +98,20 @@ class ContactDetail extends StatelessWidget {
                         _makeTableRow('Фамилия', snapshot.data.lastName),
                         _makeTableRow('ВК', snapshot.data.vk),
                         _makeTableRow('Дата рождения', snapshot.data.birthDate),
-                        _makeTableRow('Номер телефона', snapshot.data.phoneNumber),
+                        _makeTableRow(
+                            'Номер телефона', snapshot.data.phoneNumber),
                         _makeTableRow('Скайп', snapshot.data.skype),
                       ],
                     ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Chat(chatWithId: snapshot.data.id)));
+                        },
+                        child: Text('Перейти к чату')),
                   ],
                 ),
                 margin: const EdgeInsets.all(10),

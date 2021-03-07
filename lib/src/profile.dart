@@ -51,9 +51,7 @@ class TableCell extends StatelessWidget {
 }
 
 class Profile extends StatelessWidget {
-  final FlutterSecureStorage storage;
-
-  Profile({Key key, @required this.storage}) : super(key: key);
+  final storage = new FlutterSecureStorage();
 
   Future<String> _getToken() async {
     String value = await storage.read(key: 'token');
