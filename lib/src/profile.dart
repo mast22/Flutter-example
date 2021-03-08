@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:dio/dio.dart';
-import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
 
 class User {
   final String firstName;
@@ -35,7 +37,6 @@ class User {
         profileImage = json['img'];
 }
 
-
 class TableCell extends StatelessWidget {
   final String value;
 
@@ -52,11 +53,13 @@ class TableCell extends StatelessWidget {
 
 class Profile extends StatelessWidget {
   final storage = new FlutterSecureStorage();
+  final picker = new ImagePicker();
 
   Future<String> _getToken() async {
     String value = await storage.read(key: 'token');
     return value;
   }
+
 
   Future<User> _getUser() async {
     String getUserUrl = 'http://studentapi.myknitu.ru/getuser/';
@@ -81,6 +84,24 @@ class Profile extends StatelessWidget {
     );
   }
 
+  void setProfilePhoto(imageBytes) async {
+    var dio = Dio();
+
+    var payload = {
+      'img': base64Encode(imageBytes),
+      'token': await _getToken(),
+    };
+
+    dio.post('http://studentapi.myknitu.ru/updateuserimage/', data: payload);
+  }
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    var _image = File(pickedFile.path);
+
+    setProfilePhoto(_image.readAsBytesSync());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +114,9 @@ class Profile extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.network(snapshot.data.profileImage),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Table(
                       border: TableBorder.all(),
                       children: [
@@ -106,6 +129,11 @@ class Profile extends StatelessWidget {
                         _makeTableRow('Скайп', snapshot.data.skype),
                       ],
                     ),
+                    ElevatedButton(
+                        onPressed: () => getImage(), child: Text('Сменить фото профиля')),
+                    ElevatedButton(
+                        onPressed: () {},
+                        child: Text('Редактировать данные профиля')),
                   ],
                 ),
                 margin: const EdgeInsets.all(10),
