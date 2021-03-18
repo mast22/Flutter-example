@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'file:///D:/projects/flutter/flutter_app/lib/src/gallery/gallery.dart';
 import 'dart:io';
-import 'src/profile.dart';
+import 'src/profile/profile.dart';
 import 'src/contacts.dart';
 import 'src/account/signin.dart';
 import 'src/account/signup.dart';

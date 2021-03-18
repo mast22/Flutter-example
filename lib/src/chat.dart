@@ -137,6 +137,7 @@ class _ChatInputState extends State<ChatInput> {
               child: ElevatedButton(
                 onPressed: () async {
                   await _sendMessage(textField.text);
+                  setState(() {});
                 },
                 child: Icon(Icons.send),
               )),

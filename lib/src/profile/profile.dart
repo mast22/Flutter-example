@@ -1,41 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/profile/edit_profile.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
+import 'User.dart';
 
-class User {
-  final String firstName;
-  final String lastName;
-  final String vk;
-  final String birthDate;
-  final String phone;
-  final String skype;
-  final String login;
-  final String profileImage;
-
-  User(
-    this.firstName,
-    this.lastName,
-    this.vk,
-    this.birthDate,
-    this.phone,
-    this.skype,
-    this.login,
-    this.profileImage,
-  );
-
-  User.fromJson(Map<String, dynamic> json)
-      : firstName = json['user'],
-        lastName = json['family'],
-        vk = json['vk'],
-        birthDate = json['bithday'],
-        phone = json['phonenumber'],
-        skype = json['skype'],
-        login = json['login'],
-        profileImage = json['img'];
-}
 
 class TableCell extends StatelessWidget {
   final String value;
@@ -132,7 +103,7 @@ class Profile extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () => getImage(), child: Text('Сменить фото профиля')),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfile())),
                         child: Text('Редактировать данные профиля')),
                   ],
                 ),
